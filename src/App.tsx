@@ -1,32 +1,22 @@
-import React from "react";
-<<<<<<< Updated upstream
+import { Route, Routes } from "react-router";
 import "./App.css";
+import Home from "./pages/home/Home";
+import PartOne from "./pages/partOne/PartOne";
+import PartTwo from "./pages/partTwo/PartTwo";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <main className="pb-14 md:pb-2 pt-2">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/partOne" element={<PartOne />} />
+          <Route path="/partTwo" element={<PartTwo />} />
+          <Route path="*" element={<h1>404</h1>} />
+        </Routes>
+      </main>
+    </>
   );
-=======
-import logo from "./logo.svg";
-import "./App.css";
-
-function App() {
-  return <div className="App"></div>;
->>>>>>> Stashed changes
 }
 
 export default App;
