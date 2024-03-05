@@ -1,11 +1,12 @@
 import React from "react";
 import { useState } from "react";
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, InputNumber } from "antd";
 import { DatePicker } from "antd";
 import type { DatePickerProps } from "antd";
 import { Dayjs } from "dayjs";
 import { convert_to_en_number } from "../../../lib/translateNumbers";
 import { formOneStepOneScham } from "../../../lib/validation";
+import PlusIcon from "../util/PlusIcon";
 
 const { RangePicker } = DatePicker;
 type RangeValue = [Dayjs | null, Dayjs | null] | null;
@@ -55,19 +56,26 @@ export const StepOne: React.FC<Props> = ({ setStepOneData, setStep }) => {
   };
 
   const prefixSelector = (
-    <Form.Item
-      rules={[
-        {
-          pattern: /^(\+?\d{1,3}|\d{1,4})$/,
-          required: true,
-          message: "Please enter your country code!",
-        },
-      ]}
-      name="countryCode"
-      noStyle
-    >
-      <Input className="rounded-none" style={{ width: 80 }} />
-    </Form.Item>
+    <div className="relative">
+      <Form.Item
+        rules={[
+          {
+            pattern: /^[1-9]\d{0,14}$/,
+            required: true,
+            message: "Please enter your country code!",
+          },
+        ]}
+        name="countryCode"
+        noStyle
+      >
+        <InputNumber
+          controls={false}
+          className="rounded-none"
+          style={{ width: 70, paddingLeft: "10px" }}
+        />
+      </Form.Item>
+      <PlusIcon className="absolute top-[.75rem] left-2 z-10 opacity-65" />
+    </div>
   );
 
   const onFinish = (fieldsValue: any) => {
@@ -84,8 +92,8 @@ export const StepOne: React.FC<Props> = ({ setStepOneData, setStep }) => {
     const daysDifference = getDatesBetween(start, end);
     const validated = formOneStepOneScham.safeParse({
       name: values.name,
-      countryCode: convert_to_en_number(values.countryCode),
-      phone: convert_to_en_number(values.phone),
+      countryCode: convert_to_en_number(values.countryCode.toString()),
+      phone: convert_to_en_number(values.phone.toString()),
       dateRange: daysDifference,
     });
     if (validated.success) {
@@ -123,11 +131,10 @@ export const StepOne: React.FC<Props> = ({ setStepOneData, setStep }) => {
             },
           ]}
         >
-          <Input
+          <InputNumber
+            controls={false}
+            style={{ width: "100%" }}
             addonBefore={prefixSelector}
-            style={{
-              width: "100%",
-            }}
           />
         </Form.Item>
         <Form.Item

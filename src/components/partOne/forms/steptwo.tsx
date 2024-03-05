@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Button, ColorPicker, Form, InputNumber } from "antd";
 import { formOneStepTwoScham } from "../../../lib/validation";
 const formItemLayout = {
@@ -11,6 +11,12 @@ const formItemLayout = {
     sm: { span: 10 },
   },
 };
+interface Color_rgba {
+  r: number;
+  g: number;
+  b: number;
+  a: number;
+}
 type Props = {
   setStep: React.Dispatch<React.SetStateAction<0 | 1 | 2>>;
   stepOneData: {
@@ -36,20 +42,7 @@ export const Steptwo: React.FC<Props> = ({
   setStep,
 }) => {
   const [error, setError] = useState<string | null>();
-  const prefixSelector = (name: string) => (
-    <Form.Item
-      rules={[
-        {
-          required: true,
-          message: "Please Select Color",
-        },
-      ]}
-      name={name}
-      noStyle
-    >
-      <ColorPicker />
-    </Form.Item>
-  );
+
   const onFinishStepTwo = (fieldsValue: any) => {
     const tempArr = stepOneData.dateRange.map((date) => {
       const { r, g, b, a } = fieldsValue[`color${date}`].metaColor;
@@ -67,9 +60,44 @@ export const Steptwo: React.FC<Props> = ({
       setError(JSON.parse(validated.error.message)[0].message);
     }
   };
+
+  const initialVal = useMemo(() => {
+    //green
+    const defaultColor: Color_rgba = {
+      r: 20,
+      g: 141,
+      b: 14,
+      a: 1,
+    };
+    const initialValArray = stepOneData.dateRange.map((date) => ({
+      [`color${date}`]: {
+        ...defaultColor,
+        metaColor: defaultColor,
+      },
+    }));
+    const obj = Object.assign({}, ...initialValArray);
+    return obj;
+  }, [stepOneData.dateRange]);
+
+  const prefixSelector = (name: string) => (
+    <Form.Item
+      rules={[
+        {
+          required: true,
+          message: "Please Select Color",
+        },
+      ]}
+      name={name}
+      noStyle
+    >
+      <ColorPicker />
+    </Form.Item>
+  );
+
   return (
     <div>
       <Form
+        initialValues={initialVal}
         name="time_related_controls"
         {...formItemLayout}
         onFinish={onFinishStepTwo}
