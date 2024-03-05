@@ -12,7 +12,7 @@ const formItemLayout = {
   },
 };
 type Props = {
-  setStep: React.Dispatch<React.SetStateAction<"1" | "2" | "3">>;
+  setStep: React.Dispatch<React.SetStateAction<0 | 1 | 2>>;
   stepOneData: {
     name: string;
     countryCode: string;
@@ -62,7 +62,7 @@ export const Steptwo: React.FC<Props> = ({
     const validated = formOneStepTwoScham.safeParse(tempArr);
     if (validated.success) {
       setStepTwoData(validated.data);
-      setStep("3");
+      setStep(2);
     } else {
       setError(JSON.parse(validated.error.message)[0].message);
     }

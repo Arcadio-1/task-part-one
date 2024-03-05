@@ -32,7 +32,7 @@ function getDatesBetween(startDate: Date, endDate: Date): string[] {
 }
 
 type Props = {
-  setStep: React.Dispatch<React.SetStateAction<"1" | "2" | "3">>;
+  setStep: React.Dispatch<React.SetStateAction<0 | 1 | 2>>;
   setStepOneData: React.Dispatch<
     React.SetStateAction<{
       name: string;
@@ -91,7 +91,7 @@ export const StepOne: React.FC<Props> = ({ setStepOneData, setStep }) => {
     if (validated.success) {
       setError(null);
       setStepOneData(validated.data);
-      setStep("2");
+      setStep(1);
     } else {
       setError(JSON.parse(validated.error.message)[0].message);
     }

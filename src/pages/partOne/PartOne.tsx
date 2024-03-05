@@ -5,6 +5,7 @@ import { Steptwo } from "../../components/partOne/forms/steptwo";
 import { Result } from "../../components/partOne/result";
 import { Container } from "../../components/util/Container";
 import { BackBtn } from "../../components/util/BackBtn";
+import { StepsStatus } from "../../components/partOne/util/StepsStatus";
 
 const PartOne = () => {
   const [stepOneData, setStepOneData] = useState<{
@@ -22,12 +23,13 @@ const PartOne = () => {
       }[]
     | []
   >([]);
-  const [step, setStep] = useState<"1" | "2" | "3">("1");
+  const [step, setStep] = useState<0 | 1 | 2>(0);
   const resetHandler = () => {
-    setStep("1");
+    setStep(0);
     setStepOneData(null);
     setStepTwoData([]);
   };
+
   return (
     <div>
       <BackBtn />
@@ -37,17 +39,18 @@ const PartOne = () => {
             algorithm: theme.darkAlgorithm,
           }}
         >
-          {step === "1" && (
+          <StepsStatus step={step} />
+          {step === 0 && (
             <StepOne setStep={setStep} setStepOneData={setStepOneData} />
           )}
-          {step === "2" && stepOneData && (
+          {step === 1 && stepOneData && (
             <Steptwo
               setStep={setStep}
               stepOneData={stepOneData}
               setStepTwoData={setStepTwoData}
             />
           )}
-          {step === "3" && stepTwoData.length && (
+          {step === 2 && stepTwoData.length && (
             <Result resetHandler={resetHandler} stepTwoData={stepTwoData} />
           )}
         </ConfigProvider>
