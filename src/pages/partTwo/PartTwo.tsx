@@ -1,24 +1,25 @@
-import { Link } from "react-router-dom";
-import { ConfigProvider, theme } from "antd";
+import { Image } from "antd";
+import { useState } from "react";
+import { Details } from "../../components/partTwo/Details";
+import Actions from "../../components/partTwo/Actions";
+import { Container } from "../../components/util/Container";
+import { BackBtn } from "../../components/util/BackBtn";
+import { OverLay } from "../../components/partTwo/OverLay";
 
 const PartTwo = () => {
+  const [lines, setLines] = useState<string[][]>([["0/0"]]);
+
   return (
     <div>
-      <Link
-        className="text-cyan-500 sticky top-5 left-5 py-2 px-6 rounded-lg bg-gray-800"
-        to={"/"}
-      >
-        Back
-      </Link>
-      <div className="grid place-items-center h-dvh mx-2 py-[4rem]">
-        <div className="bg-gray-800 rounded-lg p-3 w-full max-w-lg flex flex-col items-stretch justify-center gap-5">
-          <ConfigProvider
-            theme={{
-              algorithm: theme.darkAlgorithm,
-            }}
-          ></ConfigProvider>
+      <BackBtn />
+      <Container className="max-w-3xl">
+        <div className="relative h-auto flex grid-cols-6">
+          <Image width={"auto"} className="size-max" src="/main.jpg" />
+          <OverLay lines={lines} />
         </div>
-      </div>
+        <Details lines={lines} />
+        <Actions setLines={setLines} lines={lines} />
+      </Container>
     </div>
   );
 };

@@ -11,7 +11,7 @@ const { RangePicker } = DatePicker;
 type RangeValue = [Dayjs | null, Dayjs | null] | null;
 const formItemLayout = {
   labelCol: {
-    xs: { span: 4 },
+    xs: { span: 5 },
     sm: { span: 5 },
   },
   wrapperCol: {
