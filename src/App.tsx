@@ -1,5 +1,4 @@
 import { Route, Routes } from "react-router";
-import "./App.css";
 import Home from "./pages/home/Home";
 import PartOne from "./pages/partOne/PartOne";
 import PartTwo from "./pages/partTwo/PartTwo";

@@ -3,7 +3,7 @@ import { Button, ColorPicker, Form, InputNumber } from "antd";
 import { formOneStepTwoScham } from "../../../lib/validation";
 const formItemLayout = {
   labelCol: {
-    xs: { span: 7 },
+    xs: { span: 10 },
     sm: { span: 5 },
   },
   wrapperCol: {
@@ -51,7 +51,6 @@ export const Steptwo: React.FC<Props> = ({
     </Form.Item>
   );
   const onFinishStepTwo = (fieldsValue: any) => {
-    console.log(fieldsValue);
     const tempArr = stepOneData.dateRange.map((date) => {
       const { r, g, b, a } = fieldsValue[`color${date}`].metaColor;
       return {
